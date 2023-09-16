@@ -43,7 +43,7 @@ class Server {
     //PARSE AND READ OF BODY
     this.app.use(express.json());
     //public folder
-    // this.app.use(express.static("public"));
+    this.app.use(express.static("public"));
   }
 
   routes() {
@@ -55,11 +55,11 @@ class Server {
     );
     this.app.use(this.paths.search, require("../routes/search.routes"));
     this.app.use(this.paths.day, require("../routes/day.routes"));
+    swaggerSetup(this.app, this.port);
   }
 
   listen() {
     this.app.listen(this.port, () => {
-      swaggerSetup(this.app, this.port);
       console.log("Server on:", this.port);
     });
   }

@@ -31,11 +31,11 @@ const swaggerSetup = (app, port) => {
     swaggerUi.serve,
     swaggerUi.setup(swaggerDocs, { customCssUrl: CSS_URL })
   );
-  app.get("/api/docs.json", (req, res) => {
-    res.setHeader("Content-Type", "application/json");
-    res.send(swaggerDocs);
-  });
-  console.log("V1 Swagger Setup");
+  // app.get("/api/docs.json", (req, res) => {
+  //   res.setHeader("Content-Type", "application/json");
+  //   res.send(swaggerDocs);
+  // });
+  // console.log("V1 Swagger Setup");
 };
 
 module.exports = swaggerSetup;

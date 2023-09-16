@@ -3,61 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Google Sign-in</title>
+        <title>HEALTH API</title>
     </head>
     <body>
-        <h1>Google Sign-in</h1>
-        <hr>
-        <div id="g_id_onload"
-            data-client_id="509419693675-4bnkh0g6rl1iv1hgi7eu42u8k1qsnaek.apps.googleusercontent.com"
-            data-auto_prompt="false"
-            data-callback="handleCredentialResponse">
-        </div>
-        <div class="g_id_signin"
-            data-type="standard"
-            data-size="large"
-            data-theme="outline"
-            data-text="sign_in_with"
-            data-shape="rectangular"
-            data-logo_alignment="left">
-        </div>
-
-        <button id="google_signout">Sign out</button>
-
-        <script src="https://accounts.google.com/gsi/client" async defer></script>
-        <script>
-            function handleCredentialResponse(response) {
-                //Google token
-                fetch("http://localhost:8081/api/auth/google",{
-                    method:"POST",
-                    headers:{
-                        "Content-Type":"application/json"
-                    },
-                    body:JSON.stringify({
-                        id_token:response.credential
-                    })
-                })
-                .then(resp=>resp.json()).
-                then(resp=>{
-                console.log(resp)
-                localStorage.setItem("email",resp.user.email)
-                location.reload();
-                })
-                .catch(console.warm);
-                
-            }
-
-            const button = document.getElementById("google_signout");
-            
-
-            button.addEventListener("click",()=>{
-                google.accounts.id.disableAutoSelect();
-                google.accounts.id.revoke(localStorage.getItem("email"),done=>{
-                    localStorage.clear();
-                    location.reload();
-                });
-            });
-
-</script>
+        WELCOME TO HEALTH API
+        <!-- redirect to /api/docs with a element-->
+        <a href="/api/docs">API DOCS</a>
     </body>
 </html>
