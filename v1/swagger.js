@@ -29,7 +29,7 @@ const swaggerSetup = (app, port) => {
   app.use(
     "/api/docs",
     swaggerUi.serve,
-    swaggerUi.setup(swaggerDocs, { explorer: true, customCssUrl: CSS_URL })
+    swaggerUi.setup(swaggerDocs, { customCssUrl: CSS_URL })
   );
   app.get("/api/docs.json", (req, res) => {
     res.setHeader("Content-Type", "application/json");
