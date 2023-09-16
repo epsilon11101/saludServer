@@ -7,9 +7,6 @@ const { dbConnection } = require("../database/config.db");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 // const swaggerSetup = require("../swagger");
-const CSS_URL =
-  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
-
 class Server {
   constructor() {
     this.app = express();
@@ -26,17 +23,25 @@ class Server {
         openapi: "3.0.0",
         info: {
           title: "Health API",
+          version: "1.0.0",
           description: "Health API Information",
           contact: {
             name: "SA",
           },
-          servers: ["https://salud-server.vercel.app/"],
+          servers: [
+            {
+              url: "https://salud-server.vercel.app/",
+              description: "Development server",
+            },
+          ],
         },
       },
 
       apis: ["routes/*.js", "models/*.js"],
     };
     this.swaggerDocs = swaggerJSDoc(this.swaggerOptions);
+    this.CSS_URL =
+      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
 
     // this.accessLogStream = fs.createWriteStream(
     //   path.join(__dirname, "../logs/access.log"),
@@ -79,7 +84,7 @@ class Server {
     this.app.use(
       "/api/docs",
       swaggerUi.serve,
-      swaggerUi.setup(this.swaggerDocs)
+      swaggerUi.setup(this.swaggerDocs, { customCssUrl: this.CSS_URL })
     );
     this.app.get("/api/docs.json", (req, res) => {
       res.setHeader("Content-Type", "application/json");
