@@ -15,7 +15,7 @@ const swaggerOptions = {
       contact: {
         name: "SA",
       },
-      servers: ["https://salud-server.vercel.app"],
+      servers: ["https://salud-server.vercel.app/"],
     },
   },
 
