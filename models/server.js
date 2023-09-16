@@ -59,8 +59,8 @@ class Server {
 
   listen() {
     this.app.listen(this.port, () => {
-      console.log("Server on:", this.port);
       swaggerSetup(this.app, this.port);
+      console.log("Server on:", this.port);
     });
   }
 }
