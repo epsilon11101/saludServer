@@ -1,6 +1,9 @@
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
+const CSS_URL =
+  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
+
 //*METADATA info about our API
 
 const swaggerOptions = {
@@ -23,7 +26,11 @@ const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
 // * Function to setup swagger
 const swaggerSetup = (app, port) => {
-  app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+  app.use(
+    "/api/docs",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocs, { explorer: true, customCssUrl: CSS_URL })
+  );
   app.get("/api/docs.json", (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.send(swaggerDocs);
