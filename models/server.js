@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const morgan = require("morgan");
-const fs = require("fs");
-const path = require("path");
+// const morgan = require("morgan");
+// const fs = require("fs");
+// const path = require("path");
 const { dbConnection } = require("../database/config.db");
 const swaggerSetup = require("../v1/swagger");
 
@@ -18,10 +18,10 @@ class Server {
       day: "/api/day",
     };
 
-    this.accessLogStream = fs.createWriteStream(
-      path.join(__dirname, "../logs/access.log"),
-      { flags: "a" }
-    );
+    // this.accessLogStream = fs.createWriteStream(
+    //   path.join(__dirname, "../logs/access.log"),
+    //   { flags: "a" }
+    // );
 
     //connect to DB
     this.connectDB();
@@ -39,11 +39,11 @@ class Server {
     //CORS
     this.app.use(cors());
     //MORGAN
-    this.app.use(morgan("combined", { stream: this.accessLogStream }));
+    // this.app.use(morgan("combined", { stream: this.accessLogStream }));
     //PARSE AND READ OF BODY
     this.app.use(express.json());
     //public folder
-    this.app.use(express.static("public"));
+    // this.app.use(express.static("public"));
   }
 
   routes() {
