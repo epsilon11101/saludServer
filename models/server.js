@@ -79,7 +79,7 @@ class Server {
     this.app.use(
       "/api/docs",
       swaggerUi.serve,
-      swaggerUi.setup(this.swaggerDocs, { customCssUrl: CSS_URL })
+      swaggerUi.setup(this.swaggerDocs)
     );
     this.app.get("/api/docs.json", (req, res) => {
       res.setHeader("Content-Type", "application/json");
