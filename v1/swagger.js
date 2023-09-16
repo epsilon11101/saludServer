@@ -23,8 +23,8 @@ const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
 // * Function to setup swagger
 const swaggerSetup = (app, port) => {
-  app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-  app.get("/api/v1/docs.json", (req, res) => {
+  app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+  app.get("/api/docs.json", (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.send(swaggerDocs);
   });
