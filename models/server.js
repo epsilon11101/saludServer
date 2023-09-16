@@ -20,7 +20,7 @@ class Server {
     };
     this.swaggerOptions = {
       swaggerDefinition: {
-        openapi: "3.0.0",
+        openapi: "3.0.1",
         info: {
           title: "Health API",
           version: "1.0.0",
@@ -84,7 +84,10 @@ class Server {
     this.app.use(
       "/api/docs",
       swaggerUi.serve,
-      swaggerUi.setup(this.swaggerDocs, { customCssUrl: this.CSS_URL })
+      swaggerUi.setup(this.swaggerDocs, {
+        explorer: true,
+        customCssUrl: this.CSS_URL,
+      })
     );
     this.app.get("/api/docs.json", (req, res) => {
       res.setHeader("Content-Type", "application/json");
