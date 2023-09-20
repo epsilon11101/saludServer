@@ -61,13 +61,8 @@ class Server {
   }
 
   middlewares() {
-    const corsOptions = {
-      origin: "*", // Acepta todas las solicitudes de origen
-      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-      credentials: true, // Habilita el envío de cookies
-    };
     //CORS
-    this.app.use(cors(corsOptions));
+    this.app.use(cors());
     //MORGAN
     // this.app.use(morgan("combined", { stream: this.accessLogStream }));
     //PARSE AND READ OF BODY
