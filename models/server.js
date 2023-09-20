@@ -62,7 +62,7 @@ class Server {
 
   middlewares() {
     const corsOptions = {
-      origin: "https://salud-eight.vercel.app",
+      origin: "*", // Acepta todas las solicitudes de origen
       methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
       credentials: true, // Habilita el envío de cookies
     };
