@@ -7,7 +7,7 @@ const { json } = require("express");
 const signUp = async (req, res) => {
   const { email, password, name } = req.body;
   const { dailyCalories, notAllowedProducts, userData } = req;
-  console.log("userData", userData);
+
   try {
     if (await User.findOne({ email })) {
       return res.status(400).json({
@@ -75,10 +75,11 @@ const login = async (req, res) => {
 
     // generate JWT
     const token = await generateJWT(user.id);
+    user.token = token;
+    await user.save();
 
     res.json({
       user,
-      token,
     });
   } catch (error) {
     console.log(error);
@@ -106,7 +107,7 @@ const googleSignIn = async (req, res = response) => {
         google: true,
         role: "USER_ROLE",
       };
-      console.log(data);
+
       user = new User(data);
       await user.save();
     }
@@ -134,6 +135,7 @@ const googleSignIn = async (req, res = response) => {
 
 const logout = async (req, res) => {
   const user = req.user;
+
   if (!user) {
     return res.status(500).json({
       msg: "you want to validate role without validate token first",
@@ -141,7 +143,7 @@ const logout = async (req, res) => {
   }
   user.token = null;
   await user.save();
-  res.status(200).json({
+  res.status(201).json({
     message: "See you soon",
   });
 };

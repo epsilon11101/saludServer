@@ -21,6 +21,7 @@ const dailyCalc = (products, user) => {
     total: totalCalories,
     normal: N_percentage,
   };
+
   return daily;
 };
 
@@ -82,7 +83,7 @@ const recalculateDaily = async (req, res, next) => {
   const { user } = req;
   const { date } = req.params;
   const { product_id } = req.query;
-  console.log(product_id);
+
   const day = await Day.findOne({ date, user: user._id });
 
   if (!day) {
@@ -94,7 +95,6 @@ const recalculateDaily = async (req, res, next) => {
   const products = day.products.filter(
     (product) => product.product_id != product_id
   );
-  console.log("PRODUCTS", products);
 
   const daily_data = dailyCalc(products, user);
 

@@ -9,11 +9,14 @@ const postDay = async (req, res) => {
   const dayExists = await Day.findOne({ date, user: uid });
   if (dayExists) {
     //update day
+    const AllProducts = [...dayExists.products, ...products];
+
     const updatedDay = await Day.findOneAndUpdate(
       { date, user: uid },
-      { products, daily },
+      { products: AllProducts, daily },
       { new: true }
     );
+
     return res.status(201).json({
       msg: "Day updated",
       day: updatedDay,
@@ -37,13 +40,13 @@ const postDay = async (req, res) => {
 const getDay = async (req, res) => {
   const { date } = req.params;
   const { _id: uid } = req.user;
-  console.log(date);
 
   const day = await Day.findOne({ date, user: uid }, {});
-  console.log(day);
+
   if (!day) {
-    return res.status(404).json({
-      msg: "Day not found",
+    return res.status(200).json({
+      day: null,
+      msg: "No day found",
     });
   }
   return res.status(200).json({
@@ -53,12 +56,16 @@ const getDay = async (req, res) => {
 
 const deleteProduct = async (req, res = response) => {
   const { daily_data, updated_products, found_day } = req;
-  console.log(updated_products);
-  await found_day.updateOne({ products: updated_products, daily: daily_data });
+
+  const updated_day = await Day.findOneAndUpdate(
+    { _id: found_day._id },
+    { products: updated_products, daily: daily_data },
+    { new: true }
+  );
 
   res.status(200).json({
     msg: "Product deleted",
-    day: found_day,
+    day: updated_day,
   });
 };
 module.exports = {

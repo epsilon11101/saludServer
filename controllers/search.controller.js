@@ -3,7 +3,6 @@ const { ObjectId } = require("mongoose").Types;
 
 const searchProducts = async (req, res) => {
   const { searchTerm } = req.query;
-  console.log("searchTerm", searchTerm);
 
   const isMongoId = ObjectId.isValid(searchTerm);
   if (isMongoId) {
@@ -16,7 +15,7 @@ const searchProducts = async (req, res) => {
   const regex = new RegExp(searchTerm, "i");
 
   const products = await HealthProduct.find({
-    $or: [{ title: regex }, { categories: regex }],
+    title: regex,
   });
 
   res.status(200).json({

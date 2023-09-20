@@ -61,8 +61,13 @@ class Server {
   }
 
   middlewares() {
+    const corsOptions = {
+      origin: "https://salud-eight.vercel.app",
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      credentials: true, // Habilita el envío de cookies
+    };
     //CORS
-    this.app.use(cors());
+    this.app.use(cors(corsOptions));
     //MORGAN
     // this.app.use(morgan("combined", { stream: this.accessLogStream }));
     //PARSE AND READ OF BODY

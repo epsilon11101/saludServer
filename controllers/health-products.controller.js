@@ -12,7 +12,7 @@ const getAllProducts = async (req, res = response) => {
 
 const getNotRecommendedForBloodGroup = async (req, res = response) => {
   const { bloodGroup } = req.params;
-  console.log(typeof +bloodGroup);
+
   const filter = {
     [`groupBloodNotAllowed.${+bloodGroup}`]: true,
   };
