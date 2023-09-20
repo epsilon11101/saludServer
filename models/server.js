@@ -1,12 +1,10 @@
 const express = require("express");
 const cors = require("cors");
-// const morgan = require("morgan");
-// const fs = require("fs");
-// const path = require("path");
-const { dbConnection } = require("../database/config.db");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-// const swaggerSetup = require("../swagger");
+
+const { dbConnection } = require("../database/config.db");
+
 class Server {
   constructor() {
     this.app = express();
@@ -43,11 +41,6 @@ class Server {
     this.CSS_URL =
       "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
 
-    // this.accessLogStream = fs.createWriteStream(
-    //   path.join(__dirname, "../logs/access.log"),
-    //   { flags: "a" }
-    // );
-
     //connect to DB
     this.connectDB();
     //Middlewares
@@ -63,8 +56,6 @@ class Server {
   middlewares() {
     //CORS
     this.app.use(cors());
-    //MORGAN
-    // this.app.use(morgan("combined", { stream: this.accessLogStream }));
     //PARSE AND READ OF BODY
     this.app.use(express.json());
     //public folder
@@ -80,7 +71,7 @@ class Server {
     );
     this.app.use(this.paths.search, require("../routes/search.routes"));
     this.app.use(this.paths.day, require("../routes/day.routes"));
-    // swaggerSetup(this.app, this.port);4
+    // swaggerSetup(this.app, this.port);
     this.app.use(
       "/api/docs",
       swaggerUi.serve,
