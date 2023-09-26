@@ -11,15 +11,16 @@ const dailyCalc = (products, user) => {
     //compute consumed calories
     consumedCalories += real_kcal;
   });
-  const leftCalories = totalCalories - consumedCalories;
+  let leftCalories = totalCalories - consumedCalories;
+  leftCalories = leftCalories < 0 ? 0 : leftCalories;
 
   const N_percentage = (consumedCalories / totalCalories) * 100;
 
   const daily = {
-    left: leftCalories,
-    consumed: consumedCalories,
-    total: totalCalories,
-    normal: N_percentage,
+    left: leftCalories.toFixed(2),
+    consumed: consumedCalories.toFixed(2),
+    total: totalCalories.toFixed(2),
+    normal: N_percentage.toFixed(2),
   };
 
   return daily;
@@ -38,7 +39,7 @@ const calculateCalories = async (req, res, next) => {
   const dailyCalories =
     10 * weight + 6.25 * height - 5 * age - 161 - 10 * (weight - desiredWeight);
 
-  req.dailyCalories = dailyCalories;
+  req.dailyCalories = dailyCalories.toFixed(2);
   req.userData = userData;
   next();
 };
