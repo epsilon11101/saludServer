@@ -14,7 +14,11 @@ const dailyCalc = (products, user) => {
   let leftCalories = totalCalories - consumedCalories;
   leftCalories = leftCalories < 0 ? 0 : leftCalories;
 
-  const N_percentage = (consumedCalories / totalCalories) * 100;
+  let N_percentage = (consumedCalories / totalCalories) * 100;
+
+  if (isNaN(N_percentage)) {
+    N_percentage = 0;
+  }
 
   const daily = {
     left: leftCalories.toFixed(2),
@@ -36,8 +40,10 @@ const calculateCalories = async (req, res, next) => {
     groupBlood,
   };
 
-  const dailyCalories =
+  let dailyCalories =
     10 * weight + 6.25 * height - 5 * age - 161 - 10 * (weight - desiredWeight);
+
+  dailyCalories = dailyCalories < 0 ? 0 : dailyCalories;
 
   req.dailyCalories = dailyCalories.toFixed(2);
   req.userData = userData;
@@ -73,9 +79,7 @@ const getNotAllowedProducts = async (req, res, next) => {
 const calculateDaily = async (req, res, next) => {
   const { products } = req.body;
   const user = req.user;
-
   const daily = dailyCalc(products, user);
-
   req.daily_data = daily;
   next();
 };
